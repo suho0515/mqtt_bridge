@@ -74,8 +74,8 @@ class MqttToRosBridge(Bridge):
         self._queue_size = queue_size
         self._last_published = rospy.get_time()
         self._interval = None if frequency is None else 1.0 / frequency
-        # Adding the correct topic to subscribe to
-        self._mqtt_client.subscribe(self._topic_from)
+        # Adding the correct topic to subscribe to        
+        self._mqtt_client.subscribe(self._topic_from)        
         self._mqtt_client.message_callback_add(self._topic_from, self._callback_mqtt)
         self._publisher = rospy.Publisher(
             self._topic_to, self._msg_type, queue_size=self._queue_size)
@@ -100,6 +100,7 @@ class MqttToRosBridge(Bridge):
             msg_dict = self._deserialize(mqtt_msg.payload, raw=False)
         else:
             msg_dict = self._deserialize(mqtt_msg.payload)
+         
         return populate_instance(msg_dict, self._msg_type())
 
 
