@@ -38,6 +38,39 @@ bridge:
   #   topic_to: /private/back
 
   - factory: mqtt_bridge.bridge:MqttToRosBridge
+<<<<<<< HEAD
     msg_type: geometry_msgs.msg:PoseStamped
     topic_from: dwm/node/8813/uplink/location
     topic_to: /dwm/node/8813/uplink/location
+=======
+    msg_type: std_msgs.msg:Bool
+    topic_from: ping
+    topic_to: /pong
+  # echo back
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: std_msgs.msg:String
+    topic_from: /echo
+    topic_to: echo
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: std_msgs.msg:String
+    topic_from: echo
+    topic_to: /back
+  # private path
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: std_msgs.msg:String
+    topic_from: /private/echo
+    topic_to: ~/echo
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: std_msgs.msg:String
+    topic_from: ~/echo
+    topic_to: /private/back
+  # turtlebot3 simulator tf
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: tf2_msgs.msg:TFMessage
+    topic_from: /tf
+    topic_to: tf
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: tf2_msgs.msg:TFMessage
+    topic_from: tf
+    topic_to: /mtrb_tf
+>>>>>>> 2581be65f6d0afbd340cc6bef366a0b7d958b444
